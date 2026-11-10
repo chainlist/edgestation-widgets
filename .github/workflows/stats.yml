@@ -1,0 +1,32 @@
+name: Stats
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: node scripts/stats.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # stats.json becomes the only file of the orphan branch stats, as one commit replaced every
+      # day, so main never gets daily commits.
+      - name: Publish to the stats branch
+        run: |
+          git checkout --orphan stats
+          git rm -r -q --cached .
+          git add -f stats.json
+          git -c user.name='github-actions[bot]' \
+            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -q -m 'Update download stats'
+          git push -f origin stats

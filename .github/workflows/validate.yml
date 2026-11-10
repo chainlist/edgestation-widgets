@@ -1,0 +1,25 @@
+name: Validate
+
+on:
+  pull_request:
+    paths:
+      - widgets.json
+      - scripts/validate.mjs
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # The base branch is needed to tell which entries the pull request adds or changes.
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: node scripts/validate.mjs "origin/$BASE_REF"
+        env:
+          BASE_REF: ${{ github.base_ref }}

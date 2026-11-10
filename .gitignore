@@ -1,0 +1,3 @@
+node_modules/
+# Written by scripts/stats.mjs; published on the stats branch, never on main.
+stats.json
