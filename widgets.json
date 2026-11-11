@@ -1,3 +1,4 @@
 [
-	{ "id": "pomodoro", "repo": "chainlist/edgestation-pomodoro" }
+	{ "id": "pomodoro", "repo": "chainlist/edgestation-pomodoro" },
+	{ "id": "jira", "repo": "chainlist/edgestation-jira" }
 ]
