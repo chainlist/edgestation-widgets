@@ -1,5 +1,6 @@
 [
 	{ "id": "pomodoro", "repo": "chainlist/edgestation-pomodoro" },
 	{ "id": "jira", "repo": "chainlist/edgestation-jira" },
-	{ "id": "habits", "repo": "chainlist/edgestation-habits" }
+	{ "id": "habits", "repo": "chainlist/edgestation-habits" },
+	{ "id": "game-news", "repo": "chainlist/edgestation-game-news" }
 ]
