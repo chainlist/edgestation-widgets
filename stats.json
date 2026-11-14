@@ -1,0 +1,21 @@
+{
+	"updated": "2026-11-14T10:24:04.022Z",
+	"widgets": {
+		"pomodoro": {
+			"downloads": 0,
+			"released": null
+		},
+		"jira": {
+			"downloads": 5,
+			"released": "2026-11-11T19:49:44Z"
+		},
+		"habits": {
+			"downloads": 6,
+			"released": "2026-11-11T21:10:34Z"
+		},
+		"game-news": {
+			"downloads": 6,
+			"released": "2026-11-11T22:29:12Z"
+		}
+	}
+}
