@@ -8,8 +8,10 @@ says which repositories are listed and under which id.
 [{ "id": "weather", "repo": "owner/name" }]
 ```
 
-`widgets.json` holds nothing else. Name, author, description and version come from each widget's
-latest release, so authors never need to touch this repository after their widget is listed.
+`widgets.json` holds nothing else, apart from the `banned` mark (see
+[Banning a widget](#banning-a-widget)). Name, author, description and version come from each
+widget's latest release, so authors never need to touch this repository after their widget is
+listed.
 
 ## How EdgeStation reads a listed widget
 
@@ -39,7 +41,27 @@ The id:
   break them. Renaming your widget means changing `name` in your manifest, not the id.
 
 Removing an entry from `widgets.json` hides the widget from the browser and stops its updates in
-EdgeStation.
+EdgeStation. Copies that users already installed stay and keep running.
+
+## Banning a widget
+
+When a widget's author goes rogue, ban the widget instead of removing its entry: add `banned` with
+the reason and the latest version you know of, for the record.
+
+```json
+[{ "id": "weather", "banned": { "reason": "Sends your tokens to its author.", "version": "1.4.0" } }]
+```
+
+EdgeStation reads the ban when its Edge opens and each time Settings reads the marketplace. It then
+deletes the installed widget, its tiles on every page (with their settings, so also any tokens
+given to it) and the data it saved, and shows a warning with the reason. It hides the widget from
+the browser and never installs it again. A widget folder of the user's own with the same id is not
+touched.
+
+Drop `repo` from a banned entry. EdgeStation versions older than the ban do not know `banned`, and
+without `repo` they skip the entry, so they stop offering the widget too. Keep the entry for good:
+its id stays taken, and removing it would leave the widget installed on machines that have not
+seen the ban yet.
 
 ## Release requirements
 
@@ -104,9 +126,10 @@ jobs:
 
 ## Trust
 
-Listed widgets are reviewed once, when they are added. Later releases install automatically,
-without review. A widget runs with the same access as EdgeStation's built-in widgets, so only
-install widgets whose authors you trust.
+Listed widgets are reviewed once, when they are added. Later releases are not reviewed: users
+install them from Settings with Update or Update all. A widget runs with the same access as
+EdgeStation's built-in widgets, so only install widgets whose authors you trust. A ban removes a
+widget from every EdgeStation that has it, but it cannot undo what the widget already did.
 
 ## Download stats
 

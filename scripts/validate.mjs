@@ -40,7 +40,26 @@ widgets.forEach((w, i) => {
 	const label = typeof w.id === 'string' ? `${at} (${w.id})` : at;
 	const errorsBefore = errors.length;
 	const keys = Object.keys(w).sort().join(',');
-	if (keys !== 'id,repo') errors.push(`${label}: must have exactly the keys "id" and "repo"`);
+	const banned = 'banned' in w;
+	if (banned) {
+		if (keys !== 'banned,id' && keys !== 'banned,id,repo') {
+			errors.push(`${label}: a banned entry has the keys "id", "banned" and optionally "repo"`);
+		}
+		const ban = w.banned;
+		const banKeys = ban && typeof ban === 'object' ? Object.keys(ban).sort().join(',') : '';
+		if (banKeys !== 'reason,version') {
+			errors.push(`${label}: banned must be an object { "reason", "version" }`);
+		} else {
+			if (typeof ban.reason !== 'string' || !ban.reason.trim()) {
+				errors.push(`${label}: banned.reason must be a non-empty string`);
+			}
+			if (typeof ban.version !== 'string' || !VERSION.test(ban.version)) {
+				errors.push(`${label}: banned.version must look like 1.2.3`);
+			}
+		}
+	} else if (keys !== 'id,repo') {
+		errors.push(`${label}: must have exactly the keys "id" and "repo"`);
+	}
 
 	if (typeof w.id !== 'string' || !ID.test(w.id)) {
 		errors.push(`${label}: id must match ${ID.source}`);
@@ -51,11 +70,12 @@ widgets.forEach((w, i) => {
 	}
 	seen.add(w.id);
 
-	if (typeof w.repo !== 'string' || !REPO.test(w.repo)) {
+	if ((!banned || 'repo' in w) && (typeof w.repo !== 'string' || !REPO.test(w.repo))) {
 		errors.push(`${label}: repo must look like "owner/name"`);
 	}
 
-	if (errors.length === errorsBefore && !unchanged.has(`${w.id} ${w.repo}`)) {
+	// A banned widget's releases are not checked: its author may have broken or deleted them.
+	if (!banned && errors.length === errorsBefore && !unchanged.has(`${w.id} ${w.repo}`)) {
 		toCheck.push({ label, repo: w.repo });
 	}
 });

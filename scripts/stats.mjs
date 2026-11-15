@@ -8,7 +8,10 @@
 
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const widgets = JSON.parse(readFileSync(new URL('../widgets.json', import.meta.url), 'utf8'));
+// Banned widgets get no stats: EdgeStation no longer shows them.
+const widgets = JSON.parse(readFileSync(new URL('../widgets.json', import.meta.url), 'utf8')).filter(
+	(w) => !w.banned
+);
 const headers = { Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
 if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
 
