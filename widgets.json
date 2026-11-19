@@ -3,5 +3,6 @@
 	{ "id": "jira", "repo": "chainlist/edgestation-jira" },
 	{ "id": "habits", "repo": "chainlist/edgestation-habits" },
 	{ "id": "game-news", "repo": "chainlist/edgestation-game-news" },
-	{ "id": "stock-monitor", "repo": "chainlist/edgestation-stock-monitor" }
+	{ "id": "stock-monitor", "repo": "chainlist/edgestation-stock-monitor" },
+	{ "id": "rss-reader", "repo": "chainlist/edgestation-rss-reader" }
 ]
