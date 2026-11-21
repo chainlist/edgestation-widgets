@@ -1,0 +1,29 @@
+{
+	"updated": "2026-11-21T10:59:04.791Z",
+	"widgets": {
+		"pomodoro": {
+			"downloads": 4,
+			"released": "2026-11-15T17:53:55Z"
+		},
+		"jira": {
+			"downloads": 8,
+			"released": "2026-11-11T19:49:44Z"
+		},
+		"habits": {
+			"downloads": 9,
+			"released": "2026-11-11T21:10:34Z"
+		},
+		"game-news": {
+			"downloads": 9,
+			"released": "2026-11-11T22:29:12Z"
+		},
+		"stock-monitor": {
+			"downloads": 6,
+			"released": "2026-11-17T09:19:31Z"
+		},
+		"rss-reader": {
+			"downloads": 6,
+			"released": "2026-11-20T01:26:18Z"
+		}
+	}
+}
